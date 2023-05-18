@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\OrderController;
@@ -19,17 +20,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    /* Ciudades */
+    Route::resource('/city', CityController::class)->except(['create', 'show', 'edit']);
+    /* Clientes */
+    Route::resource('/customers', CustomersController::class)->except(['create', 'show', 'edit']);
+    /* Ordenes */
+    Route::resource('/order', OrderController::class)->except(['create', 'show', 'edit']);
+    /* Productos */
+    Route::resource('/product', ProductsController::class)->except(['create', 'show', 'edit']);
+    /* Detalles de ordenes */
+    Route::resource('/orderdetail', OrderDetailController::class)->except(['create', 'show', 'edit']);
 });
 
-/* Ciudades */
-Route::resource('/city', CityController::class)->except(['create', 'show', 'edit']);
-/* Clientes */
-Route::resource('/customers', CustomersController::class)->except(['create', 'show', 'edit']);
-/* Ordenes */
-Route::resource('/order', OrderController::class)->except(['create', 'show', 'edit']);
-/* Productos */
-Route::resource('/product', ProductsController::class)->except(['create', 'show', 'edit']);
-/* Detalles de ordenes */
-Route::resource('/orderdetail', OrderDetailController::class)->except(['create', 'show', 'edit']);
