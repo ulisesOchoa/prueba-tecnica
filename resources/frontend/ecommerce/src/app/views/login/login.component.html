@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulario de inicio de sesión</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="alert alert-danger" role="alert" id="errorAlert" *ngIf="errorStatus">
+        {{ errorMsg }}
+      </div>
+
+      <div class="col-md-4">
+        <h3 class="text-center my-4">Inicio de sesión</h3>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" required formControlName="email">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" required formControlName="password">
+          </div>
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+          </div>
+          <div class="text-center">
+            <p>¿No tienes una cuenta? <a href="registro.html">Registrarse</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

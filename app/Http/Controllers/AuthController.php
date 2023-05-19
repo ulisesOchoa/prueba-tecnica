@@ -19,7 +19,7 @@ class AuthController extends Controller
         $request->validated($request->all());
 
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return $this->error('', 'Credentials do not match', 401);
+            return $this->error('', 'Credenciales incorrectas', 401);
         }
 
         $user = User::where('email', $request->email)->first();
@@ -51,7 +51,7 @@ class AuthController extends Controller
         Auth::user()->currentAccessToken()->delete();
 
         return $this->success([
-            'message' => 'You have successfully been logged out and yout token has been deleted'
+            'message' => 'Sección cerrada correctamente.'
         ]);
     }
 }
