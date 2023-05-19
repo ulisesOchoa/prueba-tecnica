@@ -1,0 +1,40 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+      <table datatable [dtOptions]="dtOptions" class="table">
+        <thead>
+          <!-- Encabezados de las columnas -->
+          <tr>
+            <th>ID</th>
+            <th>Valor</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Estado</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Filas de datos -->
+          <tr>
+            <td>1</td>
+            <td>Producto 1</td>
+            <td>Descripción del producto 1</td>
+            <td>Descripción del producto 1</td>
+            <td>Descripción del producto 1</td>
+            <td>
+              <!-- Botones de acciones -->
+              <button>Edit</button>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <!-- Agregar más filas según los datos -->
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

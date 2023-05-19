@@ -9,19 +9,28 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
+import { CityComponent } from './views/city/city.component';
+import { ClientComponent } from './views/client/client.component';
+import { OrderComponent } from './views/order/order.component';
+
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CityComponent,
+    ClientComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    DataTablesModule,
     HttpClientModule,
   ],
   providers: [],
