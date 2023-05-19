@@ -8,21 +8,21 @@
           <!-- Encabezados de las columnas -->
           <tr>
             <th>ID</th>
-            <th>Valor</th>
-            <th>Descripción</th>
-            <th>Cantidad</th>
-            <th>Estado</th>
+            <th>Nombre</th>
+            <th>Frecha de cumpleaños</th>
+            <th>Dirección</th>
+            <th>Télefono</th>
             <th>Acción</th>
           </tr>
         </thead>
         <tbody>
           <!-- Filas de datos -->
-          <tr>
-            <td>1</td>
-            <td>Producto 1</td>
-            <td>Descripción del producto 1</td>
-            <td>Descripción del producto 1</td>
-            <td>Descripción del producto 1</td>
+          <tr *ngFor="let customer of customers">
+            <td>{{ customer.customer_id_number }}</td>
+            <td>{{ customer.customer_name }}</td>
+            <td>{{ customer.customer_birth_date }}</td>
+            <td>{{ customer.customer_address }}</td>
+            <td>{{ customer.customer_phone }}</td>
             <td>
               <!-- Botones de acciones -->
               <button>Edit</button>

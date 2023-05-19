@@ -44,4 +44,11 @@ export class ApiService {
 
     return this.http.get<any>(route, { headers })
   }
+
+  getClients() {
+    const route = this.url + 'customers';
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+    return this.http.get<any>(route, { headers })
+  }
 }
