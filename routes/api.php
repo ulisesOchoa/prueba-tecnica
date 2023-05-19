@@ -32,12 +32,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /* Ciudades */
     Route::resource('/city', CityController::class)->except(['create', 'show', 'edit']);
     /* Clientes */
+    Route::get('/customers/searchcustomers', [CustomersController::class, 'search']);
     Route::resource('/customers', CustomersController::class)->except(['create', 'show', 'edit']);
     /* Ordenes */
     Route::resource('/order', OrderController::class)->except(['create', 'show', 'edit']);
     /* Productos */
-    Route::resource('/product', ProductsController::class)->except(['create', 'show', 'edit']);
+    Route::resource('/product', ProductsController::class)->except(['create', 'edit']);
     /* Detalles de ordenes */
     Route::resource('/orderdetail', OrderDetailController::class)->except(['create', 'show', 'edit']);
+    /* Autenticado */
+    Route::get('/auth', [AuthController::class, 'auth']);
 });
 

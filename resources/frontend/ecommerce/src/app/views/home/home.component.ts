@@ -21,10 +21,10 @@ export class HomeComponent {
   }
 
   viewProduct(id: number) {
-    console.log(id);
+    this.router.navigate(['product', id]);
   }
 
-  onPaginate(url:number) {    
+  onPaginate(url:number) {
     this.api.getAllProducts(url).subscribe((prod) => {
       this.products = prod;
       console.log(prod);

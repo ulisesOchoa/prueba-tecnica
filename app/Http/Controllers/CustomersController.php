@@ -6,7 +6,7 @@ use App\Http\Requests\Customer\StoreRequest;
 use App\Http\Requests\Customer\UpdateRequest;
 use App\Models\Customer;
 use App\Models\Customers;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class CustomersController extends Controller
 {
@@ -50,5 +50,18 @@ class CustomersController extends Controller
         return response()->json(
             $customer->delete()
         );
+    }
+
+    public function search()
+    {
+        return Customer::query()
+            ->when(Request::input('search'), function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->get()
+            ->map(fn($user) => [
+                'id' => $user->id,
+                'name' => $user->name
+            ]);
     }
 }

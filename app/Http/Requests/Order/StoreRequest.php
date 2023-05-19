@@ -18,7 +18,7 @@ class StoreRequest extends FormRequest
             'order_date' => 'required|date',
             'order_total' => 'required|numeric',
             'order_date_delivery' => 'required|date',
-            'order_status' => 'required|boolean'
+            'order_status' => 'required'
         ];
     }
 }

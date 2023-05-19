@@ -45,10 +45,11 @@ export class ClientComponent {
         this.cities = res;
       },
       error: (error: any) => {
-        console.log('error in: ', error);
+        console.log('error: ', error);
       },
       complete: () => {
         console.log('carga de ciudades completa');
+        this.createForm.reset();
       },
     });
   }
@@ -56,15 +57,16 @@ export class ClientComponent {
   editCustomer(customer: any) {
     this.api.updateClient(customer).subscribe({
       next: (res: any) => {
-        console.log('res update: ', res);
+        console.log('res: ', res);
         this.customers[this.index] = res;
       },
       error: (error: any) => {
-        console.log('error in: ', error);
+        console.log('error: ', error);
       },
       complete: () => {
         console.log('Registro actualizado correctamente');
         this.showModal = false;
+        this.createForm.reset();
       },
     });
   }
@@ -72,10 +74,10 @@ export class ClientComponent {
   deleteCustomer(customer: any, index: number) {
     this.api.deleteClient(customer).subscribe({
       next: (res: any) => {
-        console.log('res update: ', res);
+        console.log('res: ', res);
       },
       error: (error: any) => {
-        console.log('error in: ', error);
+        console.log('error: ', error);
       },
       complete: () => {
         console.log('Eliminación completa');
@@ -108,14 +110,16 @@ export class ClientComponent {
 
     this.api.createClient(customer).subscribe({
       next: (res: any) => {
-        console.log('res register: ', res);
-        //agregamos el customer creado
+        console.log('res created:', res);
         this.customers.push(res);
       },
       error: (error: any) => {
-        console.log('error in: ', error);
+        console.log('error: ', error);
       },
-      complete: () => {},
+      complete: () => {
+        this.showModal = false;
+        this.createForm.reset();
+      },
     });
   }
 

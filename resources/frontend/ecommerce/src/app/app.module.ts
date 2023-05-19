@@ -14,6 +14,7 @@ import { ClientComponent } from './views/client/client.component';
 import { OrderComponent } from './views/order/order.component';
 
 import { DataTablesModule } from 'angular-datatables';
+import { ProductComponent } from './views/product/product.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DataTablesModule } from 'angular-datatables';
     FooterComponent,
     CityComponent,
     ClientComponent,
-    OrderComponent
+    OrderComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

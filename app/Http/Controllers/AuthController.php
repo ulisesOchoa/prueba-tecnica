@@ -54,4 +54,11 @@ class AuthController extends Controller
             'message' => 'Sección cerrada correctamente.'
         ]);
     }
+
+    public function auth()
+    {
+        return $this->success([
+            auth()->user()
+        ]);
+    }
 }
