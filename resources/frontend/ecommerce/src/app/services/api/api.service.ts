@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginI } from '../../models/login.interface';
 import { ResponseI } from '../../models/response.interface';
 import { ProductListI } from '../../models/ProductList.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -50,5 +50,45 @@ export class ApiService {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
 
     return this.http.get<any>(route, { headers })
+  }
+
+  public createClient(client: any): Observable<any> {
+    const route = `${this.url}customers`;
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    // body
+    const body = {...client};
+    const params = new HttpParams({
+      fromObject: JSON.parse(JSON.stringify(body))
+    });
+
+    return this.http.post<any>(route, params, {headers})
+  }
+
+  public updateClient(client:any): Observable<any> {
+    const body = {...client};
+
+    const route = `${this.url}customers/${body.value.id}`;
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+
+    const params = new HttpParams({
+      fromObject: JSON.parse(JSON.stringify(body.value))
+    });
+
+    return this.http.patch<any>(route, params, {headers});
+  }
+
+  public deleteClient(client:any): Observable<any> {
+    const route = `${this.url}customers/${client.id}`;
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+    return this.http.delete<any>(route, {headers});
+  }
+
+  getCities() {
+    const route = `${this.url}city`;
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+    return this.http.get<any>(route, {headers});
   }
 }

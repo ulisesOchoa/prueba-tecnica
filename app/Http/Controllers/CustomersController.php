@@ -40,9 +40,9 @@ class CustomersController extends Controller
 
     public function update(UpdateRequest $request, Customer $customer)
     {
-        return response()->json(
-            $customer->update($request->all())
-        );
+        $customer->update($request->all());
+
+        return response()->json($customer->load('city'));
     }
 
     public function destroy(Customer $customer)
