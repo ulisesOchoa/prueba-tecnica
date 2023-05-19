@@ -1,1 +1,30 @@
-<p>home works!</p>
+<app-header></app-header>
+<div class="container">
+  <h1>Productos</h1>
+  <div class="row">
+    <div
+      class="col-md-4"
+      *ngFor="let product of products.data"
+      (click)="viewProduct(product.id)"
+    >
+      <div class="card product-card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Stock: {{ product.product_amount }}</h5>
+          <p class="card-text">
+            Descripción: {{ product.product_description }}
+          </p>
+          <h6 class="card-subtitle mb-2 text-muted">
+            ${{ product.product_value }}
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="pagination">
+    <li *ngFor="let link of products.links" class="page-item" [ngClass]="{'active': link.active, 'disabled': !link.url}">
+      <button class="page-link" (click)="onPaginate(link.url)">{{ link.label }}</button>
+    </li>
+  </ul>
+</div>
+<app-footer></app-footer>

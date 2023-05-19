@@ -12,7 +12,14 @@ class ProductsController extends Controller
     public function index()
     {
         return response()->json(
-            Products::all()
+            Products::paginate(10)
+                ->through(fn ($product) => [
+                    'id' => $product->id,
+                    'product_description'=> $product->product_description,
+                    'product_amount'=> $product->product_amount,
+                    'product_value'=> $product->product_value,
+                    'product_status'=> $product->product_status,
+                ]),
         );
     }
 
