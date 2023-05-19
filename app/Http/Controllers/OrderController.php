@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Order\StoreRequest;
 use App\Http\Requests\Order\UpdateRequest;
 use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Products;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    use HttpResponses;
+
     public function index()
     {
         return response()->json(
@@ -18,15 +24,40 @@ class OrderController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $order = Order::create([
-            'customer_id' => $request->customer_id,
-            'order_date' => $request->order_date,
-            'order_total' => $request->order_total,
-            'order_date_delivery' => $request->order_date_delivery,
-            'order_status' => $request->order_status,
-        ]);
 
-        return response()->json($order->load('customer'));
+        DB::beginTransaction();
+
+        try {
+            $product = Products::whereId($request->product_id)->first();
+
+            $order = Order::create([
+                'customer_id' => $request->customer_id,
+                'order_date' => $request->order_date,
+                'order_total' => $request->order_total,
+                'order_date_delivery' => $request->order_date_delivery,
+                'order_status' => $request->order_status,
+            ]);
+
+            OrderDetail::create([
+                'order_id' => $order->id,
+                'product_id' => $request->product_id
+            ]);
+
+            // se descuenta los productos
+            $product->decrement('product_amount', $order->order_total);
+            $product->save();
+
+            DB::commit();
+
+            return $this->success([
+                $order->load('customer')
+            ]);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return $this->error($th, 'Ha ocurrido un error', 401);
+        }
     }
 
     public function show(Order $order)

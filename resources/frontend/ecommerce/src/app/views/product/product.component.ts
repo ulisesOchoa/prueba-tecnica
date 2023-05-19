@@ -15,6 +15,7 @@ export class ProductComponent {
   customers: any = [];
 
   public createForm: FormGroup = this.formBuilder.group({
+    produtc_id: [''],
     customer_id: [''],
     order_date: [''],
     order_total: ['', [Validators.required]],
@@ -34,8 +35,6 @@ export class ProductComponent {
 
     this.api.getCustomer().subscribe({
       next: (res) => {
-        console.log(res);
-
         this.customers = res;
       },
       error: (error: any) => {
@@ -79,6 +78,7 @@ export class ProductComponent {
     const { order_total } = this.createForm.value;
 
     const order = {
+      product_id: this.id,
       customer_id: 2,
       order_date: new Date(),
       order_total: order_total,
