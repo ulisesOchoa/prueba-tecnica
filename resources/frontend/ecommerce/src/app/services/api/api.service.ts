@@ -177,5 +177,25 @@ export class ApiService {
     return this.http.get<any>(route, { headers });
   }
 
+  public getOrders(): Observable<any> {
+    const route = `${this.url}order`;
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
+
+    return this.http.get<any>(route, { headers });
+  }
+
+  public getOrderDetail(id: any): Observable<any> {
+    const route = `${this.url}orderdetail/${id}`;
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
+
+    return this.http.get<any>(route, { headers });
+  }
+
 
 }

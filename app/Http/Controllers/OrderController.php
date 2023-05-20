@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Order\StoreRequest;
 use App\Http\Requests\Order\UpdateRequest;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Products;
@@ -17,14 +18,17 @@ class OrderController extends Controller
 
     public function index()
     {
+        $order = Order::with('customer:id,customer_name', 'orderDetails:id')
+            ->withCount('orderDetails')
+            ->get();
+
         return response()->json(
-            Order::with('customer')->get()
+            $order
         );
     }
 
     public function store(StoreRequest $request)
     {
-
         DB::beginTransaction();
 
         try {
@@ -50,9 +54,8 @@ class OrderController extends Controller
             DB::commit();
 
             return $this->success([
-                $order->load('customer')
+                new OrderResource($order->load('customer'))
             ]);
-
         } catch (\Throwable $th) {
             DB::rollBack();
 

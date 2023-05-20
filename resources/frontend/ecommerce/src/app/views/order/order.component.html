@@ -1,1 +1,87 @@
-<p>order works!</p>
+<app-header></app-header>
+<div class="container">
+  <h1>Ordenes</h1>
+
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-8">
+        <!-- <button (click)="openCreateModal()" type="button" class="btn btn-primary">
+          Crear
+        </button> -->
+
+        <table datatable [dtOptions]="dtOptions" class="table">
+          <thead>
+            <!-- Encabezados de las columnas -->
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Frecha de orden</th>
+              <th>Total</th>
+              <th>Fecha de entrega</th>
+              <th>Estado</th>
+              <th>Detalles</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Filas de datos -->
+            <tr *ngFor="let order of orders; let i = index">
+              <td>{{ order.id }}</td>
+              <td>{{ order.customer.name }}</td>
+              <td>{{ order.order_date }}</td>
+              <td>{{ order.order_total }}</td>
+              <td>{{ order.order_date_delivery }}</td>
+              <td>{{ order.order_status }}</td>
+              <td>{{ order.order_details_count }}</td>
+              <td>
+                <button (click)="openDetailModal(order)">Ver detalle</button>
+              </td>
+            </tr>
+            <!-- Agregar más filas según los datos -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal"
+  id="modalCompra"
+  tabindex="-1"
+  role="dialog"
+  [ngClass]="{ 'd-block': showModal }"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCompraLabel">Detalles de la compra</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="card" *ngFor="let order of orderToView.order_details; let i = index">
+          <div class="card-body">
+            <h5 class="card-title">Orden N° {{ order.id }} </h5>
+            <button (click)="viweOrderDetail(order.id)" class="btn btn-secondary">Ver</button>
+            <span *ngIf="orderDetail">
+              <p class="card-text">Descripción del producto: {{ orderDetail.product.product_description }}</p>
+              <p class="card-text">Valor del producto: {{ orderDetail.product.product_value }}</p>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="closeModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

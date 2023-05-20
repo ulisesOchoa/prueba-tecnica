@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /* Productos */
     Route::resource('/product', ProductsController::class)->except(['create', 'edit']);
     /* Detalles de ordenes */
-    Route::resource('/orderdetail', OrderDetailController::class)->except(['create', 'show', 'edit']);
+    Route::resource('/orderdetail', OrderDetailController::class)->except(['create', 'edit']);
     /* Autenticado */
     Route::get('/auth', [AuthController::class, 'auth']);
 });

@@ -27,22 +27,24 @@ class OrderDetailController extends Controller
         return response()->json($product);
     }
 
-    public function show(OrderDetail $orderDetail)
-    {
-        return response()->json($orderDetail);
-    }
-
-    public function update(Request $request, OrderDetail $orderDetail)
+    public function show(OrderDetail $orderdetail)
     {
         return response()->json(
-            $orderDetail->update($request->all())
+            $orderdetail->load('product')
         );
     }
 
-    public function destroy(OrderDetail $orderDetail)
+    public function update(Request $request, OrderDetail $orderdetail)
     {
         return response()->json(
-            $orderDetail->delete()
+            $orderdetail->update($request->all())
+        );
+    }
+
+    public function destroy(OrderDetail $orderdetail)
+    {
+        return response()->json(
+            $orderdetail->delete()
         );
     }
 }
